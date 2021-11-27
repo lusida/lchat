@@ -1,9 +1,9 @@
 {
-  "name": "snapchat",
+  "name": "magicdev.collaborator",
   "version": "0.0.1",
   "author": "SIDA-LU <43487524+lusida@users.noreply.github.com>",
   "description": "appeon chat project",
-  "license": null,
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -19,8 +19,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "snapchat",
-    "appId": "com.snapchat.chat",
+    "productName": "magicdev.collaborator",
+    "appId": "com.magicdev.collaborator",
     "directories": {
       "output": "build"
     },
@@ -46,7 +46,7 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/icon.png"
     },
     "linux": {
       "icon": "build/icons"

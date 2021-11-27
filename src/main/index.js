@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Tray, Menu } from 'electron'
 import '../renderer/store'
 
 /**
@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let canQuit = false
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -22,15 +23,48 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     height: 563,
+    width: 1000,
     useContentSize: true,
     autoHideMenuBar: true,
-    width: 1000
+    icon: 'build/icons/icon.png'
   })
 
   mainWindow.loadURL(winURL)
 
+  mainWindow.on('close', e => {
+    if (!canQuit) {
+      e.preventDefault()
+
+      mainWindow.hide()
+    }
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
+  })
+
+  createTray()
+}
+
+function createTray () {
+  mainWindow.Tray = new Tray('build/icons/icon.png')
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Quit',
+      click: e => {
+        canQuit = true
+        mainWindow.close()
+      }
+    }
+  ])
+  mainWindow.Tray.setToolTip('这是我的应用程序.')
+  mainWindow.Tray.setContextMenu(contextMenu)
+  mainWindow.Tray.on('click', e => {
+    if (mainWindow.isVisible()) {
+      mainWindow.hide()
+    } else {
+      mainWindow.show()
+    }
   })
 }
 

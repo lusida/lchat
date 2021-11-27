@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'snapchat'
+    name: 'Collaborator'
   }
 </script>
 
