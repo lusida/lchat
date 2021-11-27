@@ -9,18 +9,23 @@ let router = new Router({
     {
       path: '/',
       name: 'Chat',
-      component: require('@/components/LandingPage').default
+      component: require('@/views/Chat/Index').default
     },
     {
       path: '/login',
       name: 'Login',
+      meta: {
+        isOpen: true
+      },
       component: require('@/views/Auth/Login').default
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (store.state.Auth.IsAuthenticated) {
+  console.log('===========>', to, store.state.Auth.IsAuthenticated)
+  if (to.meta.isOpen ||
+    store.state.Auth.IsAuthenticated) {
     next()
   } else {
     next({ name: 'Login' })

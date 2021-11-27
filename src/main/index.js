@@ -1,7 +1,7 @@
 'use strict'
 
 import { app, BrowserWindow, Tray, Menu } from 'electron'
-import '../renderer/store'
+import store from '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
@@ -59,9 +59,13 @@ function createWindow () {
   loginWindow.loadURL(winURL)
 
   loginWindow.on('closed', e => {
-    mainWindow.show()
+    if (store.state.Auth.IsAuthenticated === true) {
+      mainWindow.show()
 
-    createTray()
+      createTray()
+    } else {
+      mainWindow.close()
+    }
 
     loginWindow = null
   })
