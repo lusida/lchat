@@ -24,6 +24,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     width: 1000,
+    show: false,
     useContentSize: true,
     autoHideMenuBar: true,
     icon: 'build/icons/icon.png'
@@ -43,7 +44,27 @@ function createWindow () {
     mainWindow = null
   })
 
-  createTray()
+  let loginWindow = new BrowserWindow({
+    height: 450,
+    width: 300,
+    minimizable: false,
+    maximizable: false,
+    hasShadow: true,
+    parent: mainWindow,
+    useContentSize: true,
+    autoHideMenuBar: true,
+    icon: 'build/icons/icon.png'
+  })
+
+  loginWindow.loadURL(winURL)
+
+  loginWindow.on('closed', e => {
+    mainWindow.show()
+
+    createTray()
+
+    loginWindow = null
+  })
 }
 
 function createTray () {
