@@ -1,5 +1,5 @@
 const state = {
-  IsLogined: false,
+  IsAuthenticated: false,
   Token: '',
   UserId: '',
   UserName: '',
@@ -11,7 +11,7 @@ const state = {
 
 const mutations = {
   AUTH_ONLOGINED (state, user) {
-    state.IsLogined = true
+    state.IsAuthenticated = true
     state.Token = user.Token
     state.UserId = user.UserId
     state.UserName = user.UserName
@@ -21,7 +21,7 @@ const mutations = {
     state.CompanyId = user.CompanyId
   },
   AUTH_ONLOGOUTED (state) {
-    state.IsLogined = false
+    state.IsAuthenticated = false
   }
 }
 
@@ -34,15 +34,8 @@ const actions = {
   }
 }
 
-const getters = {
-  isAuthenticated: state => {
-    return state.IsLogined && state.Token !== ''
-  }
-}
-
 export default {
   state,
   mutations,
-  actions,
-  getters
+  actions
 }

@@ -1,7 +1,6 @@
 'use strict'
 
 import { app, BrowserWindow, Tray, Menu } from 'electron'
-import '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
@@ -13,12 +12,14 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow
 let canQuit = false
+
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
 function createWindow () {
   app.isLogined = false
+  app.User = {}
   /**
    * Initial window options
    */
@@ -66,6 +67,8 @@ function createWindow () {
       createTray()
     } else {
       mainWindow.close()
+
+      app.exit()
     }
 
     loginWindow = null

@@ -13,7 +13,6 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 const electron = require('electron')
-
 Vue.prototype.$electron = electron
 
 new Vue({

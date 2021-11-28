@@ -6,7 +6,13 @@
 
 <script>
   export default {
-    name: 'Collaborator'
+    name: 'Collaborator',
+    created () {
+      console.log('=>', this.$electron.remote.app.isLogined, this.$electron.remote.app.User)
+      if (this.$electron.remote.app.IsLogined && this.$electron.remote.app.User) {
+        this.$store.dispatch('onLogined', this.$electron.remote.app.User)
+      }
+    }
   }
 </script>
 
