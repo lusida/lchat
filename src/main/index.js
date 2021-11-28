@@ -1,7 +1,7 @@
 'use strict'
 
 import { app, BrowserWindow, Tray, Menu } from 'electron'
-import store from '../renderer/store'
+import '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
@@ -18,6 +18,7 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  app.isLogined = false
   /**
    * Initial window options
    */
@@ -46,7 +47,7 @@ function createWindow () {
 
   let loginWindow = new BrowserWindow({
     height: 450,
-    width: 300,
+    width: 380,
     minimizable: false,
     maximizable: false,
     hasShadow: true,
@@ -59,7 +60,7 @@ function createWindow () {
   loginWindow.loadURL(winURL)
 
   loginWindow.on('closed', e => {
-    if (store.state.Auth.IsAuthenticated === true) {
+    if (app.isLogined) {
       mainWindow.show()
 
       createTray()

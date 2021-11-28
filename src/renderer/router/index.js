@@ -23,12 +23,17 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('===========>', to, store.state.Auth.IsAuthenticated)
-  if (to.meta.isOpen ||
-    store.state.Auth.IsAuthenticated) {
+  if (to.matched.some(m => m.meta.isOpen)) {
+    console.log('beforeEach-next1', to, to.matched.some(m => m.meta.isOpen))
     next()
   } else {
-    next({ name: 'Login' })
+    if (store.getters.IsAuthenticated) {
+      console.log('beforeEach-next2', to, store.getters.IsAuthenticated)
+      next()
+    } else {
+      console.log('beforeEach-login', to, store.getters.IsAuthenticated)
+      next({name: 'Login'})
+    }
   }
 })
 

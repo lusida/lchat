@@ -21,6 +21,12 @@
   "build": {
     "productName": "magicdev.collaborator",
     "appId": "com.magicdev.collaborator",
+    "installerIcon": "./build/icons/install.png",
+    "installerHeaderIcon": "./build/icons/logo.png",
+    "uninstallerIcon": "./build/icons/uninstall.png",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Collaborator",
     "directories": {
       "output": "build"
     },
