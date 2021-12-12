@@ -62,6 +62,7 @@
     "axios": "^0.18.0",
     "electron-store": "^8.0.1",
     "element-ui": "^2.15.6",
+    "jwchat": "^1.0.4",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
