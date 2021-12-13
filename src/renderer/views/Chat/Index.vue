@@ -42,7 +42,7 @@
                 username: 'John Snow',
                 avatar: 'assets/imgs/snow.png',
                 status: {
-                  state: 'offline',
+                  state: 'online',
                   lastChanged: '14 July, 20:00'
                 }
               }
