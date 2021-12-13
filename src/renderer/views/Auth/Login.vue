@@ -30,6 +30,10 @@ export default {
         CompanyId: 'C001'
       }
       this.$store.dispatch('onLogined', this.$electron.remote.app.User)
+
+      this.$router.push({name: 'Chat'})
+
+      this.$electron.ipcRenderer.send('changWindowSize')
     }
   }
 }

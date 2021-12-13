@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, Tray, Menu } from 'electron'
+import { app, BrowserWindow, Tray, Menu, ipcMain } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -18,15 +18,12 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
-  app.isLogined = false
-  app.User = {}
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
-    width: 1000,
-    show: false,
+    height: 450,
+    width: 380,
     useContentSize: true,
     autoHideMenuBar: true,
     icon: 'build/icons/icon.png'
@@ -46,33 +43,7 @@ function createWindow () {
     mainWindow = null
   })
 
-  let loginWindow = new BrowserWindow({
-    height: 450,
-    width: 380,
-    minimizable: false,
-    maximizable: false,
-    hasShadow: true,
-    parent: mainWindow,
-    useContentSize: true,
-    autoHideMenuBar: true,
-    icon: 'build/icons/icon.png'
-  })
-
-  loginWindow.loadURL(winURL)
-
-  loginWindow.on('closed', e => {
-    if (app.isLogined) {
-      mainWindow.show()
-
-      createTray()
-    } else {
-      mainWindow.close()
-
-      app.exit()
-    }
-
-    loginWindow = null
-  })
+  createTray()
 }
 
 function createTray () {
@@ -110,6 +81,10 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+ipcMain.on('changWindowSize', e =>
+  mainWindow.setSize(1000, 563)
+)
 
 /**
  * Auto Updater
